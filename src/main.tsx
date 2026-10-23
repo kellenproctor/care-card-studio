@@ -115,7 +115,6 @@ function Card({
       )}
       {singlePage && (
         <div className="single-page-signoff">
-          <p className="with-care">With care,</p>
           <img className="rotary-logo" src="/NCRotaryLogo.png" alt="Rotary Club of Newport Coast" />
         </div>
       )}
@@ -126,7 +125,7 @@ function App() {
   const [main, setMain] = useState(initial),
     [style, setStyle] = useState(0),
     [back, setBack] = useState(false),
-    [singlePage, setSinglePage] = useState(false),
+    [singlePage, setSinglePage] = useState(true),
     [portrait, setPortrait] = useState(true),
     [personal, setPersonal] = useState(false),
     [heading, setHeading] = useState("A little something for you"),
@@ -143,7 +142,7 @@ function App() {
     setStyle(0);
     setCardStyles([0, 1, 2, 3]);
     setBack(false);
-    setSinglePage(false);
+    setSinglePage(true);
     setPortrait(true);
     setPersonal(false);
     setHeading("A little something for you");

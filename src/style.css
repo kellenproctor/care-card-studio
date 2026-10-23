@@ -1536,9 +1536,6 @@ select {
   align-items: flex-end;
   gap: 1.5cqw;
 }
-.single-page-signoff .with-care {
-  position: static;
-}
 .single-page-signoff .rotary-logo {
   position: static;
   width: 100%;
@@ -1561,4 +1558,20 @@ select {
 .portrait .card-single-page .corner-lower {
   width: 60%;
   height: 48%;
+}
+
+/* Landscape adjustments use the logo height as their unit. */
+.single-page-signoff {
+  --signoff-logo-height: calc(35cqw * 311 / 1156);
+}
+.landscape .single-page-signoff .rotary-logo {
+  position: relative;
+  top: calc(var(--signoff-logo-height) * -0.15);
+  left: calc(var(--signoff-logo-height) * -0.1);
+}
+/* Give the portrait logo its own quiet space above the lower botanical. */
+.portrait .single-page-signoff {
+  right: calc(10% + 32cqw * 311 / 1156 * 0.05);
+  bottom: 14%;
+  width: 35.2%;
 }

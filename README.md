@@ -8,9 +8,9 @@ bun run dev
 bun run build
 ```
 
-The studio combines message and motif editing with a full-sheet preview. Portrait is the default orientation. Four different editable affirmations and flower motifs are the default; use the numbered card selector to edit each card, or repeat one card across the sheet.
+The studio combines message and motif editing with a full-sheet preview. Portrait is the default orientation, with single-page, one-sided printing selected by default. Four different editable affirmations and flower motifs are the default; use the numbered card selector to edit each card, or repeat one card across the sheet.
 
-Choose **Single page · one-sided** to print all four cards on one page, with botanicals reflected into the upper-right and lower-left corners and “With care,” plus the Rotary Club of Newport Coast logo at the bottom right. Choose **Two-sided · fronts + backs** for the original fronts and signature-friendly backs. Plant names are omitted from printed cards. Both Print and Download PDF follow the selected format. Back-sheet columns are reversed to align with the matching fronts when duplex printing.
+Choose **Single page · one-sided** to print all four cards on one page, with botanicals reflected into the upper-right and lower-left corners and the Rotary Club of Newport Coast logo at the bottom right. Choose **Two-sided · fronts + backs** for the original fronts and signature-friendly backs. Plant names are omitted from printed cards. Both Print and Download PDF follow the selected format. Back-sheet columns are reversed to align with the matching fronts when duplex printing.
 
 ## Printing
 
