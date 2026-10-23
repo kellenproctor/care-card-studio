@@ -6,7 +6,6 @@ import {
   Printer,
   Download,
   Check,
-  Layers,
   CreditCard,
   Info,
 } from "lucide-react";
@@ -80,15 +79,17 @@ function Card({
   back,
   personal,
   heading,
+  singlePage,
 }: {
   main: string;
   style: number;
   back: boolean;
   personal: boolean;
   heading: string;
+  singlePage: boolean;
 }) {
   return (
-    <div className={"card " + (back ? "card-back" : "")}>
+    <div className={"card " + (back ? "card-back" : "") + (singlePage ? " card-single-page" : "")}>
       {!back && <Botanicals style={style} />}
       {back ? (
         <div className="back-content">
@@ -98,12 +99,6 @@ function Card({
             src="/NCRotaryLogo.png"
             alt="Rotary Club of Newport Coast"
           />
-          <p className="flower-label">
-            <span>{styles[style].name}</span>
-            <span>
-              <i>{styles[style].scientific}</i>
-            </span>
-          </p>
         </div>
       ) : (
         <div className="card-content">
@@ -118,6 +113,12 @@ function Card({
           </div>
         </div>
       )}
+      {singlePage && (
+        <div className="single-page-signoff">
+          <p className="with-care">With care,</p>
+          <img className="rotary-logo" src="/NCRotaryLogo.png" alt="Rotary Club of Newport Coast" />
+        </div>
+      )}
     </div>
   );
 }
@@ -125,8 +126,8 @@ function App() {
   const [main, setMain] = useState(initial),
     [style, setStyle] = useState(0),
     [back, setBack] = useState(false),
-    [sheet, setSheet] = useState(false),
-    [portrait, setPortrait] = useState(false),
+    [singlePage, setSinglePage] = useState(false),
+    [portrait, setPortrait] = useState(true),
     [personal, setPersonal] = useState(false),
     [heading, setHeading] = useState("A little something for you"),
     [guides, setGuides] = useState(true),
@@ -142,8 +143,8 @@ function App() {
     setStyle(0);
     setCardStyles([0, 1, 2, 3]);
     setBack(false);
-    setSheet(false);
-    setPortrait(false);
+    setSinglePage(false);
+    setPortrait(true);
     setPersonal(false);
     setHeading("A little something for you");
     setGuides(true);
@@ -156,7 +157,8 @@ function App() {
     <Card
       main={mix ? messages[index] : main}
       style={mix ? cardStyles[index] : style}
-      back={isBack}
+      back={!singlePage && isBack}
+      singlePage={singlePage}
       personal={personal}
       heading={heading}
     />
@@ -195,7 +197,7 @@ function App() {
         );
       }
       pdf.save("a-little-care-cards.pdf");
-      setStatus("Downloaded! Fronts on page 1, backs on page 2.");
+      setStatus(singlePage ? "Downloaded! One-sided cards on one page." : "Downloaded! Fronts on page 1, backs on page 2.");
     } catch {
       setStatus("PDF could not be created. Use Print and choose Save as PDF.");
     } finally {
@@ -336,7 +338,7 @@ function App() {
               <span>
                 <span className="live-dot" /> LIVE PREVIEW
               </span>
-              <div className="segments">
+              <div className="segments" hidden={singlePage}>
                 <button
                   className={!back ? "on" : ""}
                   onClick={() => setBack(false)}
@@ -351,42 +353,20 @@ function App() {
                 </button>
               </div>
             </div>
-            <div className={"preview-stage " + (sheet ? "sheet-stage" : "")}>
-              {sheet ? (
-                <div
-                  className={"preview-sheet " + (guides ? "cut-guides" : "")}
-                >
-                  {sheetIndices(back).map((i) => (
+            <div className="preview-stage sheet-stage">
+              <div className="preview-paper-space">
+                <div className={"preview-sheet " + (guides ? "cut-guides" : "")}>
+                  {sheetIndices(!singlePage && back).map((i) => (
                     <React.Fragment key={i}>{card(i)}</React.Fragment>
                   ))}
                 </div>
-              ) : (
-                <div className="single-preview">{card(activeCard)}</div>
-              )}
+              </div>
               <div className="dimension">
-                {sheet
-                  ? `US Letter · ${portrait ? "8.5 × 11" : "11 × 8.5"} in`
-                  : `${portrait ? "4.25 × 5.5" : "5.5 × 4.25"} inches · ${back ? "Back of card" : styles[selectedStyle].name}`}
+                US Letter · {portrait ? "8.5 × 11" : "11 × 8.5"} in
               </div>
             </div>
             <div className="preview-bottom">
-              <div className="segments">
-                <button
-                  className={!sheet ? "on" : ""}
-                  onClick={() => setSheet(false)}
-                >
-                  <CreditCard size={15} /> Single card
-                </button>
-                <button
-                  className={sheet ? "on" : ""}
-                  onClick={() => setSheet(true)}
-                >
-                  <Layers size={15} /> Print sheet
-                </button>
-              </div>
-              <span>
-                <Check size={13} /> Changes appear instantly
-              </span>
+              <span><Check size={13} /> Changes appear instantly</span>
             </div>
           </section>
           <aside className="print-panel panel">
@@ -394,6 +374,14 @@ function App() {
               <h2>Print a little kindness</h2>
               <span>02</span>
             </div>
+            <label className="field-label" htmlFor="print-format">Print format</label>
+            <select id="print-format" value={singlePage ? "single" : "duplex"} onChange={(e) => {
+              setSinglePage(e.target.value === "single");
+              setBack(false);
+            }}>
+              <option value="duplex">Two-sided · fronts + backs</option>
+              <option value="single">Single page · one-sided</option>
+            </select>
             <label className="field-label">Card orientation</label>
             <div className="segments orientation">
               <button
@@ -446,10 +434,10 @@ function App() {
                 </span>
               </p>
               <p className="pdf-note">
-                Print and PDF include fronts + backs.
-                <br />
-                {portrait ? "Long-edge" : "Short-edge"} duplex, or print each
-                side separately.
+                {singlePage ? "Print and PDF include one page. Print one-sided." : <>
+                  Print and PDF include fronts + backs.<br />
+                  {portrait ? "Long-edge" : "Short-edge"} duplex, or print each side separately.
+                </>}
               </p>
               <div role="status" className="status">
                 {status}
@@ -459,7 +447,7 @@ function App() {
         </div>
       </main>
       <div className="print-only">
-        {[false, true].map((b) => (
+        {(singlePage ? [false] : [false, true]).map((b) => (
           <div
             className={"print-page " + (guides ? "cut-guides" : "")}
             key={String(b)}
@@ -471,7 +459,7 @@ function App() {
         ))}
       </div>
       <div className="export-container" ref={exportRef}>
-        {[false, true].map((b) => (
+        {(singlePage ? [false] : [false, true]).map((b) => (
           <div
             className={"export-page " + (guides ? "cut-guides" : "")}
             key={String(b)}

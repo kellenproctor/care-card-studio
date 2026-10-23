@@ -8,7 +8,9 @@ bun run dev
 bun run build
 ```
 
-The compact studio combines message and motif editing in one sidebar, with a sheet-mode dropdown at the top. Edit affirmations, choose one of four hand-painted single-species botanical designs, add an optional heading, with a standard back featuring “With care,” above a blank signature space, the Rotary Club of Newport Coast logo, and a small quoted common/scientific flower name at bottom center. Four different editable affirmations and flower motifs are the default; each numbered card has its own message and motif. use the numbered card selector, or repeat one card. Both Print and Download PDF include two pages: fronts followed by backs. Back-sheet columns are reversed so flower labels align with the matching fronts using the recommended duplex settings.
+The studio combines message and motif editing with a full-sheet preview. Portrait is the default orientation. Four different editable affirmations and flower motifs are the default; use the numbered card selector to edit each card, or repeat one card across the sheet.
+
+Choose **Single page · one-sided** to print all four cards on one page, with botanicals reflected into the upper-right and lower-left corners and “With care,” plus the Rotary Club of Newport Coast logo at the bottom right. Choose **Two-sided · fronts + backs** for the original fronts and signature-friendly backs. Plant names are omitted from printed cards. Both Print and Download PDF follow the selected format. Back-sheet columns are reversed to align with the matching fronts when duplex printing.
 
 ## Printing
 
@@ -31,4 +33,4 @@ The four illustrations depict California poppy with driftwood, dune lupine with 
 - [California Coastal Commission: Upper Newport Bay plants](https://www.coastal.ca.gov/publiced/unbweb/unb_plants.html)
 - [Calflora: Seaside Daisy](https://www.calflora.org/app/taxon?crn=3140)
 
-PDF downloads use losslessly compressed, transparent PNG artwork at 288 dpi. Cards have no printed background fill: the loaded paper supplies the color. The on-screen white sheet is only a paper preview. Typical two-page exports are about 4.3 MB.
+PDF downloads use losslessly compressed, transparent PNG artwork at 288 dpi. Cards have no printed background fill: the loaded paper supplies the color. The on-screen white sheet is only a paper preview.

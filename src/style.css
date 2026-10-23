@@ -1497,3 +1497,68 @@ select {
     background: transparent !important;
   }
 }
+
+/* Fit the entire sheet into the available preview width and height. */
+.preview-paper-space {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  container-type: size;
+  display: grid;
+  place-items: center;
+}
+.preview-paper-space .preview-sheet {
+  width: min(100cqw, calc(100cqh * 11 / 8.5));
+  max-width: 750px;
+  flex-shrink: 0;
+}
+.portrait .preview-paper-space .preview-sheet {
+  width: min(100cqw, calc(100cqh * 8.5 / 11));
+}
+.preview-stage .dimension {
+  flex-shrink: 0;
+  text-align: center;
+}
+.preview-toolbar [hidden] {
+  display: none;
+}
+/* Mirror the complete botanical composition across the vertical centerline. */
+.card-single-page > .botanicals {
+  transform: scaleX(-1);
+}
+.single-page-signoff {
+  position: absolute;
+  right: 9%;
+  bottom: 7%;
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.5cqw;
+}
+.single-page-signoff .with-care {
+  position: static;
+}
+.single-page-signoff .rotary-logo {
+  position: static;
+  width: 100%;
+  max-height: none;
+}
+@media (max-width: 950px) {
+  .preview-stage {
+    flex: none;
+    height: 390px;
+  }
+  .portrait .preview-stage {
+    height: 430px;
+  }
+}
+/* Leave a clear pocket beside the lower sprig for the club signature. */
+.card-single-page .corner-lower {
+  width: 48%;
+  height: 55%;
+}
+.portrait .card-single-page .corner-lower {
+  width: 60%;
+  height: 48%;
+}
